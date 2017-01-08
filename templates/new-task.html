@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+{% block content %}
+    <form action="" method=post>
+    <h2>{%- if task is defined %} Edit {% else %} Create new {% endif -%}Task</h2>
+        <div class="control-group">
+            <div class="control-group" >
+                <div class="controls">
+                </div>
+            </div>
+            {#
+            <hr>
+            <div class="control-group">
+                <div class="controls">
+                    <select class="selectpicker" name="priority" required>
+                        {% for priority in priorities %}
+                                <option value="{{ priority.id }}" {% if task is defined %}{% if task.priority_id == priority.id %} selected {% endif %}{% endif %}>{{ priority.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            #}
+            <hr>
+            <div class="control-group">
+                <div class="controls">
+                    <input 
+                        type="text" 
+                        id="description" 
+                        name="description" 
+                        maxlength="60" 
+                        class="form-control input-xlarge"
+                        placeholder="Describe TASK" 
+                        {% if task is defined -%}
+                            value="{{ task.description }}"
+                        {% endif -%}
+                        required
+                      />
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="control-group">
+            <div class="controls">
+                <button type="submit" class="btn btn-success">
+                    {% if task %}
+                        Save
+                    {% else %}
+                        Create Todo
+                    {% endif %}
+                </button>
+            </div>
+        </div>
+    </form>
+{% endblock %}

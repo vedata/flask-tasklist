@@ -1,0 +1,41 @@
+{% extends 'layout.html' %}
+{% from 'macros.html' import icon %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-9">
+            {% if tasks|count > 0 %}
+            <h3 class="lead">Tasks</h3>
+            <table id="task-table" class="table">
+               <tr>
+                    <th>#</th>
+                    <th>Description</th>
+                    {#<th>Priority</th>#}
+                    <th>Creation date</th>
+                    <th>Actions</th>
+                </tr>
+                {%- for task in tasks %}
+                    <tr {% if task.is_done %}class="success"{% endif %}>
+                        <td> {{ loop.index }} </td>
+                        <td {% if task.is_done %}style="text-decoration:line-through"{% endif %}>{{ task.description }}</td>
+                        {#<td>{{ task.priority.name }}</td>#}
+                        <td>{{ task.creation_date }}</td>
+                        <td>
+                            <a class="btn btn-xs btn-default{% if task.is_done %} disabled{% endif %}"  href="{{ url_for('update_task', task_id=task.id) }}" >{{ icon('edit') }} Edit</a>
+                            <form id=delform action="{{ url_for('delete_task', task_id=task.id) }}" method="post">
+                                {#<input class="btn btn-xs btn-danger" type="submit" name="delete_task" value="Delete">#}
+                                <a onclick="$('#delform').submit();" class="btn btn-xs btn-danger" id="delete_task" href="#">{{ icon('trash') }} Delete</a>
+                            </form>
+                            <form id=isdone action="{{ url_for('mark_done', task_id=task.id) }}" method="post">
+                                {#<input class="btn btn-xs btn-default" type="submit" name="mark_done" value="Done"{% if task.is_done %} disabled{% endif %}>#}
+                                <a onclick="$('#isdone').submit()" class="btn btn-xs btn-default" id="mark_done"{% if task.is_done %} disabled{% endif %}>{{ icon('check') }} Done</a>
+                            </form>
+                        </td>
+                    </tr>
+                {%- endfor %}
+            </table>
+            {% else %}
+            <h3 class=lead>No Task available</h3>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
