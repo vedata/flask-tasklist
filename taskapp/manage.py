@@ -1,12 +1,12 @@
 from flask_script import Manager,commands
-from taskapp.taskapp import app
+from taskapp import app
 
 manager = Manager(app)
 
 @manager.command
 def init_db():
     with app.test_request_context():
-        from taskapp.models import db
+        from models import db
         db.engine.echo = True
         db.metadata.bind = db.engine
         db.metadata.create_all(checkfirst=True)
