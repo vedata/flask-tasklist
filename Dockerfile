@@ -10,6 +10,6 @@ RUN apt-get update && apt-get install -y \
     python-pip
 
 RUN pip install -r requirements.txt && \
-    git clone https://github.com/vekatron/flask-tasklist.git
+    git clone https://github.com/vedata/flask-tasklist.git
 
 ENTRYPOINT ./start.sh
