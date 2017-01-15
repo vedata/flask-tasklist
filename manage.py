@@ -1,5 +1,5 @@
 from flask_script import Manager,commands
-from taskapp import app
+from taskapp.taskapp import app
 
 manager = Manager(app)
 
